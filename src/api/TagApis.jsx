@@ -14,6 +14,12 @@ export const get_snip = async (id) => {
         .catch(err => console.log(err))
 }
 
+export const get_snips = async () => {
+    return await axios.get(`${home}api/snip/all/`)
+        .then(response => response.data.snips)
+        .catch(err => console.log(err))
+}
+
 export const get_languages = async () => {
     return await axios.get(`${home}api/language/all/`)
         .then(response => response.data.languages)

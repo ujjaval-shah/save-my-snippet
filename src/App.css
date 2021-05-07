@@ -1,7 +1,7 @@
-.App {
+.main {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: auto auto;
+    grid-template-columns: min-content auto;
 }
 
 .side-bar {

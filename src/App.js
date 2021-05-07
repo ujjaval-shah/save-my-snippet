@@ -3,27 +3,32 @@ import 'semantic-ui-css/semantic.min.css'
 import TagList from './components/TagList';
 
 import React, { Component } from 'react';
-import { get_tags } from './api/TagApis';
-import Snippet from './components/Snippet';
+import { get_languages, get_snips, get_tags } from './api/TagApis';
+// import Snippet from './components/Snippet';
+import SnippetList from './components/SnippetList';
 
 class App extends Component {
 
 	state = {
-		tags: []
+		tags: null,
+		snips: null,
+		languages: null
 	}
 
 	componentDidMount = async () => {
 		const tags = await get_tags()
-		this.setState({ tags })
+		const snips = await get_snips()
+		const languages = await get_languages()
+		this.setState({ tags, snips, languages })
 	}
 
 	render() {
-		const { tags } = this.state;
+		const { tags, snips, languages } = this.state;
 
 		return (
-			<div class="App">
+			<div class="main">
 				<TagList tags={tags} />
-				<Snippet tags={tags} />
+				{snips && <SnippetList tags={tags} snips={snips} languages={languages} />}
 			</div>
 		);
 	}

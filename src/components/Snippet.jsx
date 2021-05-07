@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import Highlight from 'react-highlight.js';
 import { Card, Container, Divider, Grid, Header, Label } from 'semantic-ui-react';
-import { get_snip, get_languages } from '../api/TagApis';
+// import { get_snip, get_languages } from '../api/TagApis';
 
 class Snippet extends Component {
 
-    state = {
-        snip: null,
-        languages: null
-    }
+    // state = {
+    //     languages: null
+    // }
 
-    componentDidMount = async () => {
-        const snip = await get_snip(6)
-        const languages = await get_languages()
-        this.setState({ snip, languages }, () => console.log(this.state))
-    }
+    // componentDidMount = async () => {
+    //     const snip = await get_snip(6)
+    //     const languages = await get_languages()
+    //     this.setState({ snip, languages }, () => console.log(this.state))
+    // }
 
     render() {
-        const { snip, languages } = this.state;
-        const { tags } = this.props;
+        // const {  languages } = this.state;
+        const { tags, snip, languages } = this.props;
         if (snip && languages && tags)
             return (
                 <Container>
