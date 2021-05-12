@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from 'react-highlight.js';
-import { Card, Container, Divider, Grid, Header, Label } from 'semantic-ui-react';
+import { Card, Container, Divider, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react';
 // import { get_snip, get_languages } from '../api/TagApis';
 
 class Snippet extends Component {
@@ -21,54 +21,59 @@ class Snippet extends Component {
         if (snip && languages && tags)
             return (
                 <Container>
-                    <Divider hidden />
-                    <Card fluid>
-                        <Card.Content>
-                            <Header as='h3'> {snip.title} </Header>
-                        </Card.Content>
-                        <Card.Content>
-                            <Header as='h4'> Snippet </Header>
-                            <Highlight language="javascript">
-                                {snip.snippet}
-                            </Highlight>
+                    <Segment basic>
 
-                            <Header as='h4'> Description </Header>
-                            <p>
-                                {snip.description}
-                            </p>
+                        <Card fluid>
+                            <Label as='a' corner='right' onClick={() => console.log("-- -- -- --")}>
+                                {snip.pinned && <Icon name='pin' />}
+                            </Label>
+                            <Card.Content>
+                                <Header as='h3'> {snip.title} </Header>
+                            </Card.Content>
+                            <Card.Content>
+                                <Header as='h4'> Snippet </Header>
+                                <Highlight language="javascript">
+                                    {snip.snippet}
+                                </Highlight>
 
-                            <Divider hidden />
+                                <Header as='h4'> Description </Header>
+                                <div>
+                                    {snip.description}
+                                </div>
 
-                            <Grid columns={4} relaxed='very'>
-                                <Grid.Column>
-                                    <Header as='h4'> Language </Header>
-                                    <p>
-                                        {languages.find(item => item.id === snip.language).language}
-                                    </p>
-                                </Grid.Column>
-                                <Grid.Column>
-                                    <Header as='h4'> Tags </Header>
-                                    <p>
-                                        {tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item => <Label key={item.id}> {item.tag} </Label>)}
-                                    </p>
-                                </Grid.Column>
-                                <Grid.Column>
-                                    <Header as='h4'> Created At </Header>
-                                    <p>
-                                        {snip.created_at.split('T').join(' ')}
-                                    </p>
-                                </Grid.Column>
-                                <Grid.Column>
-                                    <Header as='h4'> Updated At </Header>
-                                    <p>
-                                        {snip.updated_at.split('T').join(' ')}
-                                    </p>
-                                </Grid.Column>
-                            </Grid>
+                                <Divider hidden />
 
-                        </Card.Content>
-                    </Card>
-                </Container >
+                                <Grid columns={4} relaxed='very'>
+                                    <Grid.Column>
+                                        <Header as='h4'> Language </Header>
+                                        <div>
+                                            {languages.find(item => item.id === snip.language).language}
+                                        </div>
+                                    </Grid.Column>
+                                    <Grid.Column>
+                                        <Header as='h4'> Tags </Header>
+                                        <div>
+                                            {tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item => <Label key={item.id}> {item.tag} </Label>)}
+                                        </div>
+                                    </Grid.Column>
+                                    <Grid.Column>
+                                        <Header as='h4'> Created At </Header>
+                                        <div>
+                                            {snip.created_at.split('T').join(' ')}
+                                        </div>
+                                    </Grid.Column>
+                                    <Grid.Column>
+                                        <Header as='h4'> Updated At </Header>
+                                        <div>
+                                            {snip.updated_at.split('T').join(' ')}
+                                        </div>
+                                    </Grid.Column>
+                                </Grid>
+
+                            </Card.Content>
+                        </Card>
+                    </Segment>
+                </Container>
             );
         else return null
     }

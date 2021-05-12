@@ -8,8 +8,20 @@ export const get_tags = async () => {
         .catch(err => console.log(err))
 }
 
+export const create_tag = async (tagObj) => {
+    return await axios.post(`${home}api/tag/create/`, tagObj)
+        .then(response => response.data)
+        .catch(err => console.log(err))
+}
+
 export const get_snip = async (id) => {
     return await axios.get(`${home}api/snip/${id}/`)
+        .then(response => response.data)
+        .catch(err => console.log(err))
+}
+
+export const create_snip = async (snipObj) => {
+    return await axios.post(`${home}api/snip/create/`, snipObj)
         .then(response => response.data)
         .catch(err => console.log(err))
 }

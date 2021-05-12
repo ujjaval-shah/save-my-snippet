@@ -10,7 +10,7 @@ class TagList extends Component {
         return (
             <>
 
-                <div class="side-bar" >
+                <div className="side-bar" >
 
                     <Menu inverted vertical>
 
