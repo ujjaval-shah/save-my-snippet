@@ -3,13 +3,14 @@ import Highlight from 'react-highlight.js';
 import { Button, Checkbox, Container, Divider, Form, Header, TextArea } from 'semantic-ui-react';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import { create_snip, create_tag } from '../api/Apis';
+import { create_tag, update_snip } from '../api/Apis';
 import { withRouter } from "react-router-dom";
 import ConnectionFailedModal from './state/ConnectionFailedModal';
 
-class SnipForm extends Component {
+class SnipEdit extends Component {
 
     state = {
+        snipExists: true,
         title: '',
         snippet: '',
         tagLoading: false,
@@ -17,7 +18,8 @@ class SnipForm extends Component {
         languageSelection: null,
         description: '',
         pinned: false,
-        formLoading: false
+        formLoading: false,
+        connectfailmodal: false
     }
     languageOptions = {}
     tagOptions = {}
@@ -32,6 +34,24 @@ class SnipForm extends Component {
         this.setState({
             description: event.target.value
         })
+    }
+
+    componentDidMount = () => {
+        const snip = this.props.snips.find(item => item.id.toString() === this.props.match.params.snipId)
+        if (snip) {
+            const { title, snippet, description, tags, language, pinned } = snip
+            const tagSelection = this.props.tags.filter(item => tags.indexOf(item.id) >= 0).map(item => {
+                return { value: item.id, label: item.tag }
+            })
+            console.log(tagSelection);
+            // tags.map(item => ({ value: item.id, label: item.tag }))
+            const languageItem = this.props.languages.find(item => item.id === language)
+            const languageSelection = { value: languageItem.id, label: languageItem.language }
+            this.setState({ title, snippet, description, tagSelection, languageSelection, pinned })
+        } else {
+            // console.log("The snip does not exists.")
+            this.setState({ snipExists: false })
+        }
     }
 
     // newLanguage = (inputValue) => {
@@ -84,14 +104,15 @@ class SnipForm extends Component {
         const { title, snippet, description, tagSelection, languageSelection, pinned } = this.state
         const tags = tagSelection.map(item => item.value)
         const language = languageSelection.value
-        let snipObj = { title, snippet, description, tags, language, pinned }
+        const id = Number(this.props.match.params.snipId)
+        let snipObj = { id, title, snippet, description, tags, language, pinned }
         console.log(snipObj)
         this.setState({
             formLoading: true
         }, async () => {
-            const [result, new_snip] = await create_snip(snipObj)
+            const [result, updated_snip] = await update_snip(snipObj)
             if (result) {
-                this.props.snipCreated(new_snip)
+                this.props.snipUpdated(updated_snip)
                 this.props.history.push("/")
             } else {
                 this.openModal()
@@ -102,12 +123,15 @@ class SnipForm extends Component {
     }
 
     render() {
+        if (!this.state.snipExists) {
+            return <Container textAlign='center'> <Divider hidden /> <Header as='h3'> Snip does not exists. </Header> </Container>
+        }
         const { title, snippet, tagLoading, tagSelection, languageSelection, description } = this.state;
         return (
             <>
                 <Container text>
                     <Divider hidden style={{ marginTop: 0 }} />
-                    <Header as='h3'> Create New Snip </Header>
+                    <Header as='h3'> Edit Snip </Header>
                     <Form loading={this.state.formLoading}>
                         <Form.Input
                             label='Title'
@@ -191,4 +215,4 @@ class SnipForm extends Component {
     }
 }
 
-export default withRouter(SnipForm);
+export default withRouter(SnipEdit);

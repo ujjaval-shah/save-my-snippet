@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Oregano&display=swap');
+
+.app {
+    background-color: #f7f7f7;
+}
+
 .main {
     display: grid;
     grid-gap: 10px;
@@ -7,5 +13,17 @@
 .side-bar {
     min-height: 100vh;
     max-height: 100%;
-    background: #1B1C1D;
+    padding-top: 1em;
+}
+
+.logo {
+    font-family: 'Oregano', cursive;
+    font-weight: 500;
+    background-color: #1b1c1d;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.logo-clickarea {
+    margin: auto;
 }

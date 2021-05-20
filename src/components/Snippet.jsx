@@ -1,19 +1,48 @@
 import React, { Component } from 'react';
 import Highlight from 'react-highlight.js';
-import { Card, Container, Divider, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react';
-// import { get_snip, get_languages } from '../api/TagApis';
+import { withRouter } from 'react-router';
+import { Card, Container, Divider, Dropdown, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react';
+import { delete_snip } from '../api/Apis';
 
 class Snippet extends Component {
 
-    // state = {
-    //     languages: null
+    state = {
+        loading: false,
+    }
+
+    // pin = async (id) => {
+    //     this.setState({ loading: true }, async () => {
+    //         const response = await pin_snip(id)
+    //         if (response[0] === true) {
+    //             this.props.snipPinned(id)
+    //         } else {
+    //             this.setState({ loading: false })
+    //         }
+    //     })
     // }
 
-    // componentDidMount = async () => {
-    //     const snip = await get_snip(6)
-    //     const languages = await get_languages()
-    //     this.setState({ snip, languages }, () => console.log(this.state))
+    // unpin = async (id) => {
+    //     this.setState({ loading: true }, async () => {
+    //         const response = await unpin_snip(id)
+    //         if (response[0] === true) {
+    //             this.props.snipUnpinned(id)
+    //         } else {
+    //             this.setState({ loading: false })
+    //         }
+    //     })
     // }
+
+    delete = async (id) => {
+        this.setState({ loading: true }, async () => {
+            const response = await delete_snip(id)
+            if (response[0] === true) {
+                this.props.snipDeleted(id)
+            } else {
+                this.setState({ loading: false })
+                this.props.openModal()
+            }
+        })
+    }
 
     render() {
         // const {  languages } = this.state;
@@ -21,14 +50,28 @@ class Snippet extends Component {
         if (snip && languages && tags)
             return (
                 <Container>
-                    <Segment basic>
+                    <Segment basic loading={this.state.loading}>
 
                         <Card fluid>
                             <Label as='a' corner='right' onClick={() => console.log("-- -- -- --")}>
                                 {snip.pinned && <Icon name='pin' />}
                             </Label>
                             <Card.Content>
-                                <Header as='h3'> {snip.title} </Header>
+                                <Header as='h3'>
+                                    {snip.title}
+                                    <Dropdown
+                                        as={Label}
+                                        icon={{ fitted: true, size: 'large', name: 'ellipsis vertical' }}
+                                    >
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item text='Edit' onClick={
+                                                () => this.props.history.push(`/snip/${snip.id}/edit`)
+                                            } />
+                                            {snip.pinned ? <Dropdown.Item text='Unpin' /> : <Dropdown.Item text='Pin to Top' />}
+                                            <Dropdown.Item text='Delete' onClick={() => { this.delete(snip.id) }} />
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Header>
                             </Card.Content>
                             <Card.Content>
                                 <Header as='h4'> Snippet </Header>
@@ -79,4 +122,4 @@ class Snippet extends Component {
     }
 }
 
-export default Snippet;
+export default withRouter(Snippet);

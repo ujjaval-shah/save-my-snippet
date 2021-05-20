@@ -12,7 +12,7 @@ class TagList extends Component {
 
                 <div className="side-bar" >
 
-                    <Menu inverted vertical>
+                    <Menu vertical tabular>
 
                         <Menu.Item header> Folders </Menu.Item>
 
