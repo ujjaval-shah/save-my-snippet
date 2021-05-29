@@ -98,6 +98,13 @@ class App extends Component {
 								snipUpdated={this.snipUpdated}
 							/>}
 						</Route>
+						<Route path="/tag/:tagId">
+							<div className="main">
+								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
+									snipDeleted={this.snipDeleted}
+								/>}
+							</div>
+						</Route>
 						<Route path="/">
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}

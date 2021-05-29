@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Icon, Menu, Segment } from 'semantic-ui-react';
 
 class TagList extends Component {
     state = {
@@ -11,27 +11,31 @@ class TagList extends Component {
             <>
 
                 <div className="side-bar" >
+                    <Segment basic>
+                        <Menu vertical tabular>
 
-                    <Menu vertical tabular>
+                            <Menu.Item as='a' key={-1}
+                                active={this.props.activeTag === -1}
+                                onClick={() => this.props.setActiveTag(-1)}
+                                style={{ textTransform: 'initial', fontFamily: 'Cousine' }}
+                            >
+                                <Icon name='file code' />
+                                ALL SNIPS
+                            </Menu.Item>
 
-                        <Menu.Item header> Folders </Menu.Item>
+                            {
+                                this.props.tags && this.props.tags.map(item => (
+                                    <Menu.Item as='a' key={item.id}
+                                        content={item.tag}
+                                        active={this.props.activeTag === item.id}
+                                        onClick={() => this.props.setActiveTag(item.id)}
+                                        style={{ textTransform: 'initial', fontFamily: 'Cousine' }}
+                                    />
+                                ))
+                            }
 
-                        {
-                            this.props.tags && this.props.tags.map(item => (
-                                <Menu.Item as='a' key={item.id}
-                                    name={item.tag}
-                                    active={this.state.activeItem === item.id}
-                                    onClick={() => {
-                                        this.setState({
-                                            activeItem: item.id
-                                        })
-                                    }}
-                                />
-                            ))
-                        }
-
-                    </Menu>
-
+                        </Menu>
+                    </Segment>
                 </div>
 
             </>

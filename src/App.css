@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oregano&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap');
 
 .app {
     background-color: #f7f7f7;
@@ -13,7 +14,6 @@
 .side-bar {
     min-height: 100vh;
     max-height: 100%;
-    padding-top: 1em;
 }
 
 .logo {
@@ -26,4 +26,9 @@
 
 .logo-clickarea {
     margin: auto;
+}
+
+code {
+    border-radius: .3em;
+    font-size: .9em;
 }
