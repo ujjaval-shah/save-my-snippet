@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Highlight from 'react-highlight.js';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { withRouter } from 'react-router';
 import { Card, Divider, Dropdown, Header, Icon, Label, Segment } from 'semantic-ui-react';
 import { delete_snip } from '../api/Apis';
+import { Link } from 'react-router-dom';
 
 const timeFormat = (strTime) => {
     const arrTime = strTime.split('T')
@@ -81,9 +83,9 @@ class Snippet extends Component {
                         <Card.Content>
 
                             <Header as='h4'> Snippet </Header>
-                            <Highlight language="javascript" style={{ fontSize: '.95em' }}>
+                            <SyntaxHighlighter style={tomorrowNightBright} className='myCode' language="javascript">
                                 {snip.snippet}
-                            </Highlight>
+                            </SyntaxHighlighter>
 
                             {snip.description &&
                                 (<>
@@ -98,10 +100,17 @@ class Snippet extends Component {
 
                             <div style={{ fontSize: 12 }}>
                                 <p> <b>Language:</b> {languages.find(item => item.id === snip.language).language} </p>
-                                <p> <b>Tags:</b> {tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item => <Label
-                                    key={item.id}
-                                    style={{ textTransform: 'initial', fontFamily: 'Cousine', padding: '.3em', 'borderRadius': '.25em' }}
-                                > {item.tag} </Label>)} </p>
+                                <p> <b>Folder:</b> {
+                                    snip.tags.length > 0
+                                        ? tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item =>
+                                            <Label as={Link}
+                                                to={`/tag/${item.id}`}
+                                                key={item.id}
+                                                style={{ textTransform: 'initial', fontFamily: 'Cousine', padding: '.3em', 'borderRadius': '.25em' }}
+                                            > {item.tag} </Label>)
+                                        : '—'
+
+                                } </p>
                                 <p> <b>Created At: </b> {timeFormat(snip.created_at)} </p>
                                 <p> <b>Updated At: </b> {timeFormat(snip.updated_at)} </p>
                             </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { Icon, Menu, Segment } from 'semantic-ui-react';
 
 class TagList extends Component {
@@ -14,10 +15,10 @@ class TagList extends Component {
                     <Segment basic>
                         <Menu vertical tabular>
 
-                            <Menu.Item as='a' key={-1}
-                                active={this.props.activeTag === -1}
-                                onClick={() => this.props.setActiveTag(-1)}
-                                style={{ textTransform: 'initial', fontFamily: 'Cousine' }}
+                            <Menu.Item as={Link} key={-1}
+                                active={(this.props.match.path === '/' || this.props.match.path === '/tag/all')}
+                                to='/tag/all'
+                            // onClick={() => this.props.setActiveTag(-1)}
                             >
                                 <Icon name='file code' />
                                 ALL SNIPS
@@ -25,14 +26,24 @@ class TagList extends Component {
 
                             {
                                 this.props.tags && this.props.tags.map(item => (
-                                    <Menu.Item as='a' key={item.id}
+                                    <Menu.Item as={Link} key={item.id}
+                                        to={`/tag/${item.id}`}
                                         content={item.tag}
-                                        active={this.props.activeTag === item.id}
-                                        onClick={() => this.props.setActiveTag(item.id)}
+                                        active={Number(this.props.activeTag) === item.id}
+                                        // onClick={() => this.props.setActiveTag(item.id)}
                                         style={{ textTransform: 'initial', fontFamily: 'Cousine' }}
                                     />
                                 ))
                             }
+
+                            <Menu.Item as={Link} key={-2}
+                                active={this.props.activeTag === -2}
+                                to="/tag/edit"
+                            // onClick={() => this.props.setActiveTag(-2)}
+                            >
+                                <Icon name='edit' />
+                                EDIT FOLDERS
+                            </Menu.Item>
 
                         </Menu>
                     </Segment>
@@ -43,4 +54,4 @@ class TagList extends Component {
     }
 }
 
-export default TagList;
+export default withRouter(TagList);

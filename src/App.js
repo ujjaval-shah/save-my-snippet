@@ -49,6 +49,12 @@ class App extends Component {
 		}))
 	}
 
+	tagUpdated = (updatedTag) => {
+		this.setState((prevState) => ({
+			tags: [...prevState.tags.filter(item => item.id !== updatedTag.id), updatedTag]
+		}))
+	}
+
 	snipCreated = (newSnip) => {
 		this.setState((prevState) => ({
 			snips: [...prevState.snips, newSnip]
@@ -98,10 +104,28 @@ class App extends Component {
 								snipUpdated={this.snipUpdated}
 							/>}
 						</Route>
-						<Route path="/tag/:tagId">
+						<Route path="/tag/all">
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
 									snipDeleted={this.snipDeleted}
+									tagUpdated={this.tagUpdated}
+								/>}
+							</div>
+						</Route>
+						<Route path="/tag/edit">
+							<div className="main">
+								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
+									snipDeleted={this.snipDeleted}
+									tagUpdated={this.tagUpdated}
+									tagCreated={this.tagCreated}
+								/>}
+							</div>
+						</Route>
+						<Route path="/tag/:tagId(\d+)">
+							<div className="main">
+								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
+									snipDeleted={this.snipDeleted}
+									tagUpdated={this.tagUpdated}
 								/>}
 							</div>
 						</Route>
@@ -109,6 +133,7 @@ class App extends Component {
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
 									snipDeleted={this.snipDeleted}
+									tagUpdated={this.tagUpdated}
 								/>}
 							</div>
 						</Route>

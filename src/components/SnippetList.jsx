@@ -5,6 +5,7 @@ import Snippet from './Snippet';
 import ConnectionFailedModal from './state/ConnectionFailedModal';
 import TagList from './TagList';
 import Masonry from "react-responsive-masonry"
+import TagEdit from './TagEdit';
 
 const options = [
     {
@@ -25,14 +26,13 @@ class SnippetList extends Component {
 
     state = {
         connectfailmodal: false,
-        activeTag: -1,
         sortBy: 'Created At',
         sortOrder: 'up'
     }
 
-    setActiveTag = (id) => {
-        this.setState({ activeTag: id })
-    }
+    // setActiveTag = (id) => {
+    //     this.setState({ activeTag: id })
+    // }
 
     closeModal = () => {
         this.setState({ connectfailmodal: false })
@@ -44,20 +44,38 @@ class SnippetList extends Component {
 
     render() {
         const { tags, snips, languages, snipDeleted } = this.props;
+        const sortedTags = tags.sort((a, b) => a.id < b.id ? -1 : 1)
 
-        let sortedSnips = this.state.activeTag === -1
+        // The Edit Folders case
+        if (this.props.match.path === '/tag/edit') {
+            return (<>
+                <TagList tags={sortedTags} activeTag={-2} />
+                <div>
+                    <TagEdit tags={sortedTags} tagUpdated={this.props.tagUpdated} tagCreated={this.props.tagCreated} />
+                </div>
+            </>)
+        }
+
+        // Check if Folder (Tag) exists or not
+        const tagExists = tags.find((tag) => tag.id === Number(this.props.match.params.tagId)) ? true : false
+
+        // Filter Snips based on selected Folder
+        let sortedSnips = (this.props.match.path === '/' || this.props.match.path === '/tag/all')
             ? snips.slice()
-            : snips.slice().filter((snip) => snip.tags.indexOf(this.state.activeTag) >= 0)
+            : snips.slice().filter((snip) => snip.tags.indexOf(Number(this.props.match.params.tagId)) >= 0)
 
+        // Sorting
         if (this.state.sortBy === 'Created At') sortedSnips = sortedSnips.sort((a, b) => a.created_at > b.created_at ? -1 : 1)
         else sortedSnips = sortedSnips.sort((a, b) => a.updated_at > b.updated_at ? -1 : 1)
         if (this.state.sortOrder === 'down') sortedSnips.reverse()
+
+        // Pinned and Unpinned
         let pinnedSnips = sortedSnips.filter(item => item.pinned)
         let unpinnedSnips = sortedSnips.filter(item => !item.pinned)
 
         return (
             <>
-                <TagList tags={tags} activeTag={this.state.activeTag} setActiveTag={this.setActiveTag} />
+                <TagList tags={sortedTags} activeTag={this.props.match.params.tagId} />
                 <div>
                     <Segment basic>
                         <Button primary content='New Snip' icon='plus' labelPosition='left'
@@ -88,25 +106,37 @@ class SnippetList extends Component {
                         </Button>
                     </Segment>
 
-                    {sortedSnips.length === 0 && (
-                        <Container textAlign='center'>
-                            <Icon name='folder outline' size='massive' color='teal' />
-                            <Header as='h2' color='teal'> No snips in the folder. </Header>
-                        </Container>
-                    )
+                    {
+                        (sortedSnips.length === 0 && tagExists === false) && (
+                            <Container textAlign='center'>
+                                <Icon name='warning sign' size='massive' color='teal' />
+                                <Header as='h2' color='teal'> The folder does not exist. </Header>
+                            </Container>
+                        )
                     }
 
-                    {pinnedSnips.length !== 0 && (<>
-                        <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
-                            <b>PINNED</b>
-                        </Segment>
-                        <Masonry columnsCount={2}>
-                            {pinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
-                                snipDeleted={snipDeleted}
-                                openModal={this.openModal}
-                            />)}
-                        </Masonry>
-                    </>)}
+                    {
+                        (sortedSnips.length === 0 && tagExists === true) && (
+                            <Container textAlign='center'>
+                                <Icon name='folder' size='massive' color='teal' />
+                                <Header as='h2' color='teal'> No Snips in the folder. </Header>
+                            </Container>
+                        )
+                    }
+
+                    {
+                        pinnedSnips.length !== 0 && (<>
+                            <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
+                                <b>PINNED</b>
+                            </Segment>
+                            <Masonry columnsCount={2}>
+                                {pinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
+                                    snipDeleted={snipDeleted}
+                                    openModal={this.openModal}
+                                />)}
+                            </Masonry>
+                        </>)
+                    }
 
                     {unpinnedSnips.length !== 0 && (<>
                         <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>

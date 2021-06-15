@@ -3,6 +3,7 @@
 
 .app {
     background-color: #f7f7f7;
+    min-height: 100vh;
 }
 
 .main {
@@ -12,7 +13,7 @@
 }
 
 .side-bar {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     max-height: 100%;
 }
 
@@ -28,7 +29,11 @@
     margin: auto;
 }
 
-code {
+.myCode {
     border-radius: .3em;
-    font-size: .9em;
+    font-size: .92em;
+}
+
+.tag-edit input {
+    opacity: 1 !important;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Highlight from 'react-highlight.js';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Button, Checkbox, Container, Divider, Form, Header, TextArea } from 'semantic-ui-react';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -201,9 +202,9 @@ class SnipEdit extends Component {
                         (
                             <>
                                 <Header as='h3'> Snippet Preview </Header>
-                                <Highlight style={{ fontSize: 14 }} language='js'>
+                                <SyntaxHighlighter style={tomorrowNightBright} className='myCode' language="javascript">
                                     {snippet}
-                                </Highlight>
+                                </SyntaxHighlighter>
                             </>
                         )
                     }

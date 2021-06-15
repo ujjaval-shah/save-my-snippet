@@ -14,6 +14,12 @@ export const create_tag = async (tagObj) => {
         .catch(err => [false, console.log(err)])
 }
 
+export const update_tag = async (tagObj) => {
+    return await axios.put(`${home}api/tag/update/`, tagObj)
+        .then(response => [true, response.data])
+        .catch(err => [false, console.log(err)])
+}
+
 export const get_snip = async (id) => {
     return await axios.get(`${home}api/snip/${id}/`)
         .then(response => response.data)
