@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { withRouter } from 'react-router';
 import { Card, Divider, Dropdown, Header, Icon, Label, Segment } from 'semantic-ui-react';
 import { delete_snip } from '../api/Apis';
 import { Link } from 'react-router-dom';
+import languagesData from "../data/languages.json"
+import SyntaxHighlighterWrapper from './SyntaxHighlighterWrapper';
 
 const timeFormat = (strTime) => {
     const arrTime = strTime.split('T')
@@ -54,6 +54,9 @@ class Snippet extends Component {
     render() {
         // const {  languages } = this.state;
         const { tags, snip, languages } = this.props;
+        const language = languages.find(item => item.id === snip.language).language;
+        const hlLanguage = languagesData.find(item => item.language === language).val
+
         if (snip && languages && tags)
             return (
 
@@ -83,9 +86,10 @@ class Snippet extends Component {
                         <Card.Content>
 
                             <Header as='h4'> Snippet </Header>
-                            <SyntaxHighlighter style={tomorrowNightBright} className='myCode' language="javascript">
-                                {snip.snippet}
-                            </SyntaxHighlighter>
+                            <SyntaxHighlighterWrapper
+                                lang={hlLanguage}
+                                code={snip.snippet}
+                            />
 
                             {snip.description &&
                                 (<>
@@ -99,7 +103,7 @@ class Snippet extends Component {
                             <Divider hidden style={{ margin: '0.2rem' }} />
 
                             <div style={{ fontSize: 12 }}>
-                                <p> <b>Language:</b> {languages.find(item => item.id === snip.language).language} </p>
+                                <p> <b>Language:</b> {language} </p>
                                 <p> <b>Folder:</b> {
                                     snip.tags.length > 0
                                         ? tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item =>

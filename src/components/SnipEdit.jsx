@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Button, Checkbox, Container, Divider, Form, Header, TextArea } from 'semantic-ui-react';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { create_tag, update_snip } from '../api/Apis';
 import { withRouter } from "react-router-dom";
 import ConnectionFailedModal from './state/ConnectionFailedModal';
+import languagesData from "../data/languages.json"
+import SyntaxHighlighterWrapper from './SyntaxHighlighterWrapper';
 
 class SnipEdit extends Component {
 
@@ -202,9 +202,10 @@ class SnipEdit extends Component {
                         (
                             <>
                                 <Header as='h3'> Snippet Preview </Header>
-                                <SyntaxHighlighter style={tomorrowNightBright} className='myCode' language="javascript">
-                                    {snippet}
-                                </SyntaxHighlighter>
+                                <SyntaxHighlighterWrapper
+                                    lang={languageSelection !== null ? languagesData.find(item => item.language === languageSelection.label).val : "plaintext"}
+                                    code={snippet}
+                                />
                             </>
                         )
                     }

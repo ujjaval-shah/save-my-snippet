@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrowNightBright } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Button, Checkbox, Container, Divider, Form, Header, TextArea } from 'semantic-ui-react';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { create_snip, create_tag } from '../api/Apis';
 import { withRouter } from "react-router-dom";
 import ConnectionFailedModal from './state/ConnectionFailedModal';
+import languagesData from "../data/languages.json"
+import SyntaxHighlighterWrapper from './SyntaxHighlighterWrapper';
 
 class SnipForm extends Component {
 
@@ -15,7 +15,7 @@ class SnipForm extends Component {
         snippet: '',
         tagLoading: false,
         tagSelection: [],
-        languageSelection: null,
+        languageSelection: { label: "Plaintext", value: 46 },
         description: '',
         pinned: false,
         formLoading: false
@@ -132,7 +132,7 @@ class SnipForm extends Component {
                             <Select
                                 isClearable
                                 onChange={(value) => this.setState({ languageSelection: value })}
-                                onCreateOption={this.newLanguage}
+                                // onCreateOption={this.newLanguage}
                                 options={(this.props.languages !== null) ? this.props.languages.map(item => {
                                     return { value: item.id, label: item.language }
                                 }) : {}}
@@ -178,9 +178,10 @@ class SnipForm extends Component {
                         (
                             <>
                                 <Header as='h3'> Snippet Preview </Header>
-                                <SyntaxHighlighter style={tomorrowNightBright} className='myCode' language="javascript">
-                                    {snippet}
-                                </SyntaxHighlighter>
+                                <SyntaxHighlighterWrapper
+                                    lang={languageSelection !== null ? languagesData.find(item => item.language === languageSelection.label).val : "plaintext"}
+                                    code={snippet}
+                                />
                             </>
                         )
                     }
