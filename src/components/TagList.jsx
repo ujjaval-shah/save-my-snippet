@@ -45,6 +45,14 @@ class TagList extends Component {
                                 EDIT FOLDERS
                             </Menu.Item>
 
+                            <Menu.Item as={Link} key={-3}
+                                active={this.props.activeTag === -3}
+                                to="/languages/edit"
+                            >
+                                <Icon name='edit' />
+                                EDIT LANGUAGES
+                            </Menu.Item>
+
                         </Menu>
                     </Segment>
                 </div>

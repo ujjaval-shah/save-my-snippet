@@ -1,0 +1,266 @@
+[
+    {
+        "language": "Arduino",
+        "val": "arduino"
+    },
+    {
+        "language": "ARM assembler",
+        "val": "armasm"
+    },
+    {
+        "language": "AVR assembler",
+        "val": "avrasm"
+    },
+    {
+        "language": "AngelScript",
+        "val": "angelscript"
+    },
+    {
+        "language": "AppleScript",
+        "val": "applescript"
+    },
+    {
+        "language": "Bash",
+        "val": "bash"
+    },
+    {
+        "language": "Basic",
+        "val": "basic"
+    },
+    {
+        "language": "Brainfuck",
+        "val": "brainfuck"
+    },
+    {
+        "language": "C#",
+        "val": "csharp"
+    },
+    {
+        "language": "C",
+        "val": "c"
+    },
+    {
+        "language": "C++",
+        "val": "cpp"
+    },
+    {
+        "language": "CMake",
+        "val": "cmake"
+    },
+    {
+        "language": "CSS",
+        "val": "css"
+    },
+    {
+        "language": "Clojure",
+        "val": "clojure"
+    },
+    {
+        "language": "CoffeeScript",
+        "val": "coffeescript"
+    },
+    {
+        "language": "D",
+        "val": "d"
+    },
+    {
+        "language": "Dart",
+        "val": "dart"
+    },
+    {
+        "language": "Delphi",
+        "val": "dpr"
+    },
+    {
+        "language": "Dockerfile",
+        "val": "dockerfile"
+    },
+    {
+        "language": "Elixir",
+        "val": "elixir"
+    },
+    {
+        "language": "Elm",
+        "val": "elm"
+    },
+    {
+        "language": "Erlang",
+        "val": "erlang"
+    },
+    {
+        "language": "Fortran",
+        "val": "fortran"
+    },
+    {
+        "language": "Go",
+        "val": "go"
+    },
+    {
+        "language": "GraphQL",
+        "val": "graphql"
+    },
+    {
+        "language": "Haml",
+        "val": "haml"
+    },
+    {
+        "language": "Haskell",
+        "val": "haskell"
+    },
+    {
+        "language": "JSON",
+        "val": "json"
+    },
+    {
+        "language": "Java",
+        "val": "java"
+    },
+    {
+        "language": "JavaScript",
+        "val": "javascript"
+    },
+    {
+        "language": "JavaScript JSX",
+        "val": "jsx"
+    },
+    {
+        "language": "Julia",
+        "val": "julia"
+    },
+    {
+        "language": "Kotlin",
+        "val": "kotlin"
+    },
+    {
+        "language": "LaTeX",
+        "val": "tex"
+    },
+    {
+        "language": "Less",
+        "val": "less"
+    },
+    {
+        "language": "Lisp",
+        "val": "lisp"
+    },
+    {
+        "language": "LiveScript",
+        "val": "livescript"
+    },
+    {
+        "language": "Lua",
+        "val": "lua"
+    },
+    {
+        "language": "Makefile",
+        "val": "makefile"
+    },
+    {
+        "language": "Markdown",
+        "val": "markdown"
+    },
+    {
+        "language": "Matlab",
+        "val": "matlab"
+    },
+    {
+        "language": "Objective C",
+        "val": "objectivec"
+    },
+    {
+        "language": "PHP",
+        "val": "php"
+    },
+    {
+        "language": "Perl",
+        "val": "perl"
+    },
+    {
+        "language": "Plaintext",
+        "val": "plaintext"
+    },
+    {
+        "language": "Prolog",
+        "val": "prolog"
+    },
+    {
+        "language": "Python",
+        "val": "python"
+    },
+    {
+        "language": "QML",
+        "val": "qml"
+    },
+    {
+        "language": "R",
+        "val": "r"
+    },
+    {
+        "language": "Ruby",
+        "val": "ruby"
+    },
+    {
+        "language": "Rust",
+        "val": "rust"
+    },
+    {
+        "language": "SAS",
+        "val": "SAS"
+    },
+    {
+        "language": "SCSS",
+        "val": "scss"
+    },
+    {
+        "language": "SQL",
+        "val": "sql"
+    },
+    {
+        "language": "Scala",
+        "val": "scala"
+    },
+    {
+        "language": "Shell",
+        "val": "shell"
+    },
+    {
+        "language": "Smalltalk",
+        "val": "smalltalk"
+    },
+    {
+        "language": "Swift",
+        "val": "swift"
+    },
+    {
+        "language": "TypeScript",
+        "val": "typescript"
+    },
+    {
+        "language": "VB.Net",
+        "val": "vbnet"
+    },
+    {
+        "language": "VBScript",
+        "val": "vbscript"
+    },
+    {
+        "language": "VHDL",
+        "val": "vhdl"
+    },
+    {
+        "language": "Verilog",
+        "val": "verilog"
+    },
+    {
+        "language": "Vim Script",
+        "val": "vim"
+    },
+    {
+        "language": "x86 Assembly",
+        "val": "x86asm"
+    },
+    {
+        "language": "YAML",
+        "val": "yml"
+    }
+]

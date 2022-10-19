@@ -67,3 +67,9 @@ export const get_languages = async () => {
         .then(response => [true, response.data.languages])
         .catch(err => [false, console.log(err)])
 }
+
+export const create_languages = async (languagesObj) => {
+    return await axios.post(`${home}api/language/create/all/`, languagesObj)
+        .then(response => [true, response.data])
+        .catch(err => [false, console.log(err)])
+}

@@ -12,6 +12,8 @@ import SnipEdit from './components/SnipEdit';
 import TopBar from './components/TopBar';
 import PageLoading from './components/state/PageLoading';
 import ConnectionFailed from './components/state/ConnectionFailed';
+import LanguagesEdit from './components/LanguagesEdit';
+import ScrollToTop from './components/ScrollToTop';
 
 class App extends Component {
 
@@ -41,6 +43,11 @@ class App extends Component {
 			if (call1 && call2 && call3) this.setState({ tags, snips, languages, loading: false, connectionFailed: false });
 			else this.setState({ loading: false, connectionFailed: true }, () => console.log(this.state))
 		})
+	}
+
+	loadLanguaged = async () => {
+		const [call1, languages] = await get_languages();
+		if (call1) this.setState({ languages });
 	}
 
 	tagCreated = (newTag) => {
@@ -90,6 +97,7 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<TopBar />
+				<ScrollToTop />
 				<div className="app">
 					<Switch>
 						<Route path='/snip/create'>
@@ -127,6 +135,16 @@ class App extends Component {
 									snipDeleted={this.snipDeleted}
 									tagUpdated={this.tagUpdated}
 								/>}
+							</div>
+						</Route>
+						<Route path="/languages/edit">
+							<div className="main">
+								{
+									tags && <LanguagesEdit
+										tags={tags}
+										loadLanguaged={this.loadLanguaged}
+									/>
+								}
 							</div>
 						</Route>
 						<Route path="/">
