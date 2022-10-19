@@ -6,6 +6,7 @@ import ConnectionFailedModal from './state/ConnectionFailedModal';
 import TagList from './TagList';
 import Masonry from "react-responsive-masonry"
 import TagEdit from './TagEdit';
+import Select from 'react-select';
 
 const options = [
     {
@@ -27,7 +28,8 @@ class SnippetList extends Component {
     state = {
         connectfailmodal: false,
         sortBy: 'Created At',
-        sortOrder: 'up'
+        sortOrder: 'up',
+        languageSelection: null
     }
 
     // setActiveTag = (id) => {
@@ -63,6 +65,11 @@ class SnippetList extends Component {
         let sortedSnips = (this.props.match.path === '/' || this.props.match.path === '/tag/all')
             ? snips.slice()
             : snips.slice().filter((snip) => snip.tags.indexOf(Number(this.props.match.params.tagId)) >= 0)
+
+        // Language Filter
+        if (this.state.languageSelection !== null) {
+            sortedSnips = sortedSnips.filter(item => item.language === this.state.languageSelection.value)
+        }
 
         // Sorting
         if (this.state.sortBy === 'Created At') sortedSnips = sortedSnips.sort((a, b) => a.created_at > b.created_at ? -1 : 1)
@@ -104,6 +111,19 @@ class SnippetList extends Component {
                                 color={this.state.sortOrder === 'up' ? 'black' : 'pink'}
                                 fitted />
                         </Button>
+                        <div className='inline-div w180'>
+                            <Select
+                                placeholder="Select Language"
+                                isClearable
+                                onChange={(value) => this.setState({ languageSelection: value })}
+                                // onCreateOption={this.newLanguage}
+                                options={(this.props.languages !== null) ? this.props.languages.map(item => {
+                                    return { value: item.id, label: item.language }
+                                }) : {}}
+                                value={this.state.languageSelection}
+                                styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                            />
+                        </div>
                     </Segment>
 
                     {

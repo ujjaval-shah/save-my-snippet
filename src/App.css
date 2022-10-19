@@ -40,3 +40,11 @@ body {
 .tag-edit input {
     opacity: 1 !important;
 }
+
+.inline-div {
+    display: inline-block;
+}
+
+.w180 {
+    width: 180px;
+}
