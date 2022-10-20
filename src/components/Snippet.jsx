@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Card, Divider, Dropdown, Header, Icon, Label, Segment } from 'semantic-ui-react';
-import { delete_snip } from '../api/Apis';
+import { delete_snip, pin_snip, unpin_snip } from '../api/Apis';
 import { Link } from 'react-router-dom';
 import languagesData from "../data/languages.json"
 import SyntaxHighlighterWrapper from './SyntaxHighlighterWrapper';
@@ -17,27 +17,29 @@ class Snippet extends Component {
         loading: false,
     }
 
-    // pin = async (id) => {
-    //     this.setState({ loading: true }, async () => {
-    //         const response = await pin_snip(id)
-    //         if (response[0] === true) {
-    //             this.props.snipPinned(id)
-    //         } else {
-    //             this.setState({ loading: false })
-    //         }
-    //     })
-    // }
+    pin = async (id) => {
+        this.setState({ loading: true }, async () => {
+            const response = await pin_snip(id)
+            if (response[0] === true) {
+                this.props.snipUpdated({ ...this.props.snip, pinned: true })
+            } else {
+                this.setState({ loading: false })
+                this.props.openModal()
+            }
+        })
+    }
 
-    // unpin = async (id) => {
-    //     this.setState({ loading: true }, async () => {
-    //         const response = await unpin_snip(id)
-    //         if (response[0] === true) {
-    //             this.props.snipUnpinned(id)
-    //         } else {
-    //             this.setState({ loading: false })
-    //         }
-    //     })
-    // }
+    unpin = async (id) => {
+        this.setState({ loading: true }, async () => {
+            const response = await unpin_snip(id)
+            if (response[0] === true) {
+                this.props.snipUpdated({ ...this.props.snip, pinned: false })
+            } else {
+                this.setState({ loading: false })
+                this.props.openModal()
+            }
+        })
+    }
 
     delete = async (id) => {
         this.setState({ loading: true }, async () => {
@@ -63,9 +65,11 @@ class Snippet extends Component {
                 <Segment basic loading={this.state.loading}>
 
                     <Card fluid>
-                        <Label as='a' corner='right' onClick={() => console.log("-- -- -- --")}>
-                            {snip.pinned && <Icon name='pin' />}
-                        </Label>
+                        {snip.pinned &&
+                            (<Label corner='right'>
+                                <Icon name='pin' />
+                            </Label>)
+                        }
                         <Card.Content>
                             <Header as='h3'>
                                 {snip.id + ' ' + snip.title}
@@ -77,7 +81,7 @@ class Snippet extends Component {
                                         <Dropdown.Item text='Edit' onClick={
                                             () => this.props.history.push(`/snip/${snip.id}/edit`)
                                         } />
-                                        {snip.pinned ? <Dropdown.Item text='Unpin' /> : <Dropdown.Item text='Pin to Top' />}
+                                        {snip.pinned ? <Dropdown.Item text='Unpin' onClick={() => { this.unpin(snip.id) }} /> : <Dropdown.Item text='Pin to Top' onClick={() => { this.pin(snip.id) }} />}
                                         <Dropdown.Item text='Delete' onClick={() => { this.delete(snip.id) }} />
                                     </Dropdown.Menu>
                                 </Dropdown>

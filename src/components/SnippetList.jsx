@@ -45,7 +45,7 @@ class SnippetList extends Component {
     }
 
     render() {
-        const { tags, snips, languages, snipDeleted } = this.props;
+        const { tags, snips, languages, snipDeleted, snipUpdated } = this.props;
         const sortedTags = tags.sort((a, b) => a.id < b.id ? -1 : 1)
 
         // The Edit Folders case
@@ -150,30 +150,38 @@ class SnippetList extends Component {
                     }
 
                     {
-                        pinnedSnips.length !== 0 && (<>
-                            <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
-                                <b>PINNED</b>
-                            </Segment>
-                            <Masonry columnsCount={2}>
-                                {pinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
-                                    snipDeleted={snipDeleted}
-                                    openModal={this.openModal}
-                                />)}
-                            </Masonry>
-                        </>)
+                        pinnedSnips.length !== 0 && (
+                            <>
+                                <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
+                                    <b>PINNED</b>
+                                </Segment>
+                                <Masonry columnsCount={2}>
+                                    {pinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
+                                        snipDeleted={snipDeleted}
+                                        snipUpdated={snipUpdated}
+                                        openModal={this.openModal}
+                                    />)}
+                                </Masonry>
+                            </>
+                        )
                     }
 
-                    {unpinnedSnips.length !== 0 && (<>
-                        <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
-                            <b>OTHERS</b>
-                        </Segment>
-                        <Masonry columnsCount={2}>
-                            {unpinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
-                                snipDeleted={snipDeleted}
-                                openModal={this.openModal}
-                            />)}
-                        </Masonry>
-                    </>)}
+                    {
+                        unpinnedSnips.length !== 0 && (
+                            <>
+                                <Segment basic style={{ marginBottom: '0.5rem', paddingBottom: 0 }}>
+                                    <b>OTHERS</b>
+                                </Segment>
+                                <Masonry columnsCount={2}>
+                                    {unpinnedSnips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}
+                                        snipDeleted={snipDeleted}
+                                        snipUpdated={snipUpdated}
+                                        openModal={this.openModal}
+                                    />)}
+                                </Masonry>
+                            </>
+                        )
+                    }
 
                     {/* <Masonry columnsCount={2}>
                         {snips.map(item => <Snippet key={item.id} tags={tags} snip={item} languages={languages}

@@ -122,6 +122,7 @@ class App extends Component {
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
 									snipDeleted={this.snipDeleted}
+									snipUpdated={this.snipUpdated}
 									tagUpdated={this.tagUpdated}
 								/>}
 							</div>
@@ -140,6 +141,7 @@ class App extends Component {
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
 									snipDeleted={this.snipDeleted}
+									snipUpdated={this.snipUpdated}
 									tagUpdated={this.tagUpdated}
 								/>}
 							</div>
@@ -158,6 +160,7 @@ class App extends Component {
 							<div className="main">
 								{snips && <SnippetList tags={tags} snips={snips} languages={languages}
 									snipDeleted={this.snipDeleted}
+									snipUpdated={this.snipUpdated}
 									tagUpdated={this.tagUpdated}
 								/>}
 							</div>
