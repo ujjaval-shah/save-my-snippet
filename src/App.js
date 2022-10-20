@@ -62,6 +62,12 @@ class App extends Component {
 		}))
 	}
 
+	tagDeleted = (deletedId) => {
+		this.setState((prevState) => ({
+			tags: [...prevState.tags.filter(item => item.id !== deletedId)]
+		}))
+	}
+
 	snipCreated = (newSnip) => {
 		this.setState((prevState) => ({
 			snips: [...prevState.snips, newSnip]
@@ -126,6 +132,7 @@ class App extends Component {
 									snipDeleted={this.snipDeleted}
 									tagUpdated={this.tagUpdated}
 									tagCreated={this.tagCreated}
+									tagDeleted={this.tagDeleted}
 								/>}
 							</div>
 						</Route>

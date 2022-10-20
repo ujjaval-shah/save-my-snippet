@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Button, Container, Form, Header, Input, Segment } from 'semantic-ui-react';
-import { create_tag, update_tag } from '../api/Apis';
+import { create_tag, delete_tag, update_tag } from '../api/Apis';
 import ConnectionFailedModal from './state/ConnectionFailedModal';
 
 class NewTag extends Component {
@@ -91,8 +91,18 @@ class EditEachTag extends Component {
         )
     }
 
-    handleKeyPress = () => {
-        console.log('Key Press.');
+    onDeleteClick = () => {
+        const id = this.props.tag.id
+
+        this.setState({ loading: true }, async () => {
+            const response = await delete_tag(id)
+            if (response[0] === true) {
+                this.props.tagDeleted(id)
+            } else {
+                this.setState({ loading: false })
+                this.props.openModal()
+            }
+        })
     }
 
     render() {
@@ -109,9 +119,10 @@ class EditEachTag extends Component {
                         loading={this.state.loading}
                     />
                     {this.state.editMode === false
-                        ? <Button icon='pencil' type="button" onClick={this.onPencilClick} onKeyPress={this.handleKeyPress} />
-                        : <Button icon='check' type="button" onClick={this.onCheckClick} onKeyPress={this.handleKeyPress} />
+                        ? <Button icon='pencil' type="button" onClick={this.onPencilClick} />
+                        : <Button icon='check' type="button" onClick={this.onCheckClick} />
                     }
+                    <Button icon='trash alternate' type="button" onClick={this.onDeleteClick} />
                 </Form.Field>
             </>
         )
@@ -146,6 +157,7 @@ class TagEdit extends Component {
                                 tag={tag}
                                 openModal={this.openModal}
                                 tagUpdated={this.props.tagUpdated}
+                                tagDeleted={this.props.tagDeleted}
                             />)}
                         </Form>
                     </Container>

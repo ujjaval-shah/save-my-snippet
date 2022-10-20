@@ -53,7 +53,12 @@ class SnippetList extends Component {
             return (<>
                 <TagList tags={sortedTags} activeTag={-2} />
                 <div>
-                    <TagEdit tags={sortedTags} tagUpdated={this.props.tagUpdated} tagCreated={this.props.tagCreated} />
+                    <TagEdit
+                        tags={sortedTags}
+                        tagUpdated={this.props.tagUpdated}
+                        tagCreated={this.props.tagCreated}
+                        tagDeleted={this.props.tagDeleted}
+                    />
                 </div>
             </>)
         }

@@ -20,6 +20,12 @@ export const update_tag = async (tagObj) => {
         .catch(err => [false, console.log(err)])
 }
 
+export const delete_tag = async (id) => {
+    return await axios.delete(`${home}api/tag/${id}/delete/`)
+        .then(response => [true, response.data])
+        .catch(err => [false, console.log(err)])
+}
+
 export const get_snip = async (id) => {
     return await axios.get(`${home}api/snip/${id}/`)
         .then(response => response.data)

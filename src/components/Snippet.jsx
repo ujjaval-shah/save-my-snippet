@@ -105,7 +105,7 @@ class Snippet extends Component {
                             <div style={{ fontSize: 12 }}>
                                 <p> <b>Language:</b> {language} </p>
                                 <p> <b>Folder:</b> {
-                                    snip.tags.length > 0
+                                    tags.filter(item => snip.tags.indexOf(item.id) >= 0).length > 0
                                         ? tags.filter(item => snip.tags.indexOf(item.id) >= 0).map(item =>
                                             <Label as={Link}
                                                 to={`/tag/${item.id}`}
