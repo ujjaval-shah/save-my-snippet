@@ -130,7 +130,7 @@ class SnipForm extends Component {
                         <Form.Field>
                             <label> Language </label>
                             <Select
-                                isClearable
+                                // isClearable
                                 onChange={(value) => this.setState({ languageSelection: value })}
                                 // onCreateOption={this.newLanguage}
                                 options={(this.props.languages !== null) ? this.props.languages.map(item => {

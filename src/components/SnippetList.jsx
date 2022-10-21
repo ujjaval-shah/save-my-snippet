@@ -64,7 +64,8 @@ class SnippetList extends Component {
         }
 
         // Check if Folder (Tag) exists or not
-        const tagExists = tags.find((tag) => tag.id === Number(this.props.match.params.tagId)) ? true : false
+        const { tagId } = this.props.match.params;
+        const tagExists = typeof tagId === 'undefined' || tags.find((tag) => tag.id === tagId) ? true : false
 
         // Filter Snips based on selected Folder
         let sortedSnips = (this.props.match.path === '/' || this.props.match.path === '/tag/all')
@@ -144,7 +145,7 @@ class SnippetList extends Component {
                         (sortedSnips.length === 0 && tagExists === true) && (
                             <Container textAlign='center'>
                                 <Icon name='folder' size='massive' color='teal' />
-                                <Header as='h2' color='teal'> No Snips in the folder. </Header>
+                                <Header as='h2' color='teal'> No Results Found. </Header>
                             </Container>
                         )
                     }
