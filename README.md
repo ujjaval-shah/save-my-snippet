@@ -9,7 +9,7 @@ Back-end repository can be found [here](https://github.com/ujjaval-shah/saveMySn
 - Runs the app in the development mode.
 
 ```cmd
-npm start
+npm run dev
 ```
 
 - Builds the app for production to the `build` folder.
