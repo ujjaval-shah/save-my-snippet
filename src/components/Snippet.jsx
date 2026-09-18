@@ -62,7 +62,7 @@ class Snippet extends Component {
         if (snip && languages && tags)
             return (
 
-                <Segment basic loading={this.state.loading}>
+                <Segment basic loading={this.state.loading} style={{margin: "0"}}>
 
                     <Card fluid>
                         {snip.pinned &&
